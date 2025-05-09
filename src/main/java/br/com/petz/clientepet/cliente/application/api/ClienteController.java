@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ClienteController implements ClienteAPI {
 
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     @Override
     public ClienteResponse postCliente(ClienteRequest clienteRequest) {
         log.info("[start] ClienteController - postCliente");
         ClienteResponse clienteCriado = clienteService.criaCliente(clienteRequest);
         log.info("[finish] ClienteController - postCliente");
-        return null;
+        return clienteCriado;
     }
 }

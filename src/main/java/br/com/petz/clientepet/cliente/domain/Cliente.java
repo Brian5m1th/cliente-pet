@@ -1,5 +1,6 @@
 package br.com.petz.clientepet.cliente.domain;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
@@ -20,7 +20,7 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false,unique = true, nullable = false )
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
     private UUID idCliente;
     @NotBlank
     private String nomeCompleto;
@@ -38,7 +38,7 @@ public class Cliente {
     @CPF
     private String cpf;
     @NotNull
-    private boolean aceitaTermos;
+    private Boolean aceitaTermos;
 
     private LocalDateTime dataHoraCadastro;
     private LocalDateTime dataHoraUltimaAlteracao;
@@ -55,4 +55,6 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
         this.dataHoraCadastro = LocalDateTime.now();
     }
+
+
 }
