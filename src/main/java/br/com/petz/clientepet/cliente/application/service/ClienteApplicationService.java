@@ -1,5 +1,6 @@
 package br.com.petz.clientepet.cliente.application.service;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
 import br.com.petz.clientepet.cliente.application.api.ClienteListResponse;
 import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
 import br.com.petz.clientepet.cliente.application.api.ClienteResponse;
@@ -36,4 +37,13 @@ public class ClienteApplicationService implements ClienteService {
         log.info("[finish] ClienteApplicationService - buscaTodosClientes");
         return ClienteListResponse.converte(clienteList);
     }
+
+    @Override
+    public ClienteDetalhadoResponse buscaClientePorId(UUID idCliente) {
+        log.info("[start] ClienteApplicationService - buscaClientePorId");
+        List<Cliente> clienteList = clienteRepository.buscaTodosClientes();
+        log.info("[finish] ClienteApplicationService - buscaClientePorId");
+        return ClienteDetalhadoResponse.converte(clienteList);
+    }
+
 }
