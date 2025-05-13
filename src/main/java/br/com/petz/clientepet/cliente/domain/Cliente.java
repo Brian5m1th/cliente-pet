@@ -8,14 +8,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Builder
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@AllArgsConstructor
 public class Cliente {
 
     @Id
@@ -43,18 +44,15 @@ public class Cliente {
     private LocalDateTime dataHoraCadastro;
     private LocalDateTime dataHoraUltimaAlteracao;
 
-    public Cliente(LocalDateTime dataHoraCadastro, boolean aceitaTermos, String cpf, LocalDateTime dataNascimento, Sexo sexo, String telefone, String celular, String email, String nomeCompleto, UUID idCliente) {
-        this.idCliente = idCliente;
-        this.nomeCompleto = nomeCompleto;
-        this.email = email;
-        this.cpf = cpf;
-        this.sexo = sexo;
-        this.telefone = telefone;
-        this.celular = celular;
-        this.aceitaTermos = aceitaTermos;
-        this.dataNascimento = dataNascimento;
+    public Cliente(ClienteRequest clienteRequest) {
+        this.nomeCompleto = clienteRequest.getNomeCompleto();
+        this.email = clienteRequest.getEmail();
+        this.celular = clienteRequest.getCelular();
+        this.telefone = clienteRequest.getTelefone();
+        this.sexo = clienteRequest.getSexo();
+        this.dataNascimento = clienteRequest.getDataNascimento();
+        this.cpf = clienteRequest.getCpf();
+        this.aceitaTermos = clienteRequest.getAceitaTermos();
         this.dataHoraCadastro = LocalDateTime.now();
     }
-
-
 }
