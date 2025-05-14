@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ClienteRepository {
-    void salva(Cliente cliente);
+    Cliente salva(Cliente cliente);
 
     List<Cliente> findByAll();
 

@@ -5,6 +5,7 @@ import br.com.petz.clientepet.cliente.domain.Cliente;
 import br.com.petz.clientepet.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
@@ -19,10 +20,15 @@ public class ClienteInfraRepository implements ClienteRepository {
     private final ClienteSpringDataJpaRepository clienteSpringDataJpaRepository;
 
     @Override
-    public void salva(Cliente cliente) {
+    public Cliente salva(Cliente cliente) {
         log.info("[start] ClienteInfraRepository - salva");
-         clienteSpringDataJpaRepository.save(cliente);
+         try {
+             clienteSpringDataJpaRepository.save(cliente);
+         } catch (DataIntegrityViolationException e) {
+         throw APIException.build(HttpStatus.BAD_REQUEST,"Existem dados Duplicados", e);
+         }
         log.info("[finish] ClienteInfraRepository - salva");
+         return cliente;
     }
 
     @Override
