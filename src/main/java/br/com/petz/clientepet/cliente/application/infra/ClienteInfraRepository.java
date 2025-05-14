@@ -26,19 +26,27 @@ public class ClienteInfraRepository implements ClienteRepository {
     }
 
     @Override
-    public List<Cliente> buscaTodosClientes() {
+    public List<Cliente> findByAll() {
         log.info("[start] ClienteInfraRepository - findAll");
         List<Cliente> clienteList = clienteSpringDataJpaRepository.findAll();
         log.info("[finish] ClienteInfraRepository - findAll");
         return clienteList;
     }
 
+
     @Override
-    public Cliente buscaClienteAtravesId(UUID idCliente) {
+    public Cliente findById(UUID idCliente) {
         log.info("[start] ClienteInfraRepository - buscaClienteAtravesId");
         Cliente cliente = clienteSpringDataJpaRepository.findByIdCliente(idCliente)
                 .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND,"Cliente não encontrado"  ));
         log.info("[finish] ClienteInfraRepository - buscaClienteAtravesId");
         return  cliente;
+    }
+
+    @Override
+    public void deleteById(UUID idCliente) {
+        log.info("[start] ClienteInfraRepository - deleteById");
+        clienteSpringDataJpaRepository.deleteById(idCliente);
+        log.info("[finish] ClienteInfraRepository - deleteById");
     }
 }

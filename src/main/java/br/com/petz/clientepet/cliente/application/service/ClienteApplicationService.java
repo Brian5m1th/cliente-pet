@@ -33,7 +33,7 @@ public class ClienteApplicationService implements ClienteService {
     @Override
     public List<ClienteListResponse> buscaTodosClientes() {
         log.info("[start] ClienteApplicationService - buscaTodosClientes");
-        List<Cliente> clienteList = clienteRepository.buscaTodosClientes();
+        List<Cliente> clienteList = clienteRepository.findByAll();
         log.info("[finish] ClienteApplicationService - buscaTodosClientes");
         return ClienteListResponse.converte(clienteList);
     }
@@ -41,9 +41,16 @@ public class ClienteApplicationService implements ClienteService {
     @Override
     public ClienteDetalhadoResponse buscaClientePorId(UUID idCliente) {
         log.info("[start] ClienteApplicationService - buscaClientePorId");
-        Cliente  cliente = clienteRepository.buscaClienteAtravesId(idCliente);
+        Cliente cliente = clienteRepository.findById(idCliente);
         log.info("[finish] ClienteApplicationService - buscaClientePorId");
         return new ClienteDetalhadoResponse(cliente);
+    }
+
+    @Override
+    public void deletaClientePorId(UUID idCliente) {
+        log.info("[start] ClienteApplicationService - deletaclientePorId");
+        clienteRepository.deleteById(idCliente);
+        log.info("[finish] ClienteApplicationService - deletaclientePorId");
     }
 
 }

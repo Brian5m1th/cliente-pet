@@ -5,10 +5,12 @@ import br.com.petz.clientepet.cliente.domain.Cliente;
 import java.util.List;
 import java.util.UUID;
 
-public interface ClienteRepository  {
+public interface ClienteRepository {
     void salva(Cliente cliente);
 
-    List<Cliente> buscaTodosClientes();
+    List<Cliente> findByAll();
 
-    Cliente buscaClienteAtravesId(UUID idCliente);
+    Cliente findById(UUID idCliente);
+
+    void deleteById(UUID idCliente);
 }
