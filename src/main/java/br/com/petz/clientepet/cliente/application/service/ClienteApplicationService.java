@@ -1,11 +1,10 @@
 package br.com.petz.clientepet.cliente.application.service;
 
-import br.com.petz.clientepet.cliente.application.api.ClienteDetalhadoResponse;
-import br.com.petz.clientepet.cliente.application.api.ClienteListResponse;
-import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
-import br.com.petz.clientepet.cliente.application.api.ClienteResponse;
+import br.com.petz.clientepet.cliente.application.api.*;
 import br.com.petz.clientepet.cliente.domain.Cliente;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +50,16 @@ public class ClienteApplicationService implements ClienteService {
         log.info("[start] ClienteApplicationService - deletaClientePorId");
         clienteRepository.deleteById(idCliente);
         log.info("[finish] ClienteApplicationService - deletaClientePorId");
+    }
+
+
+    @Override
+    public void alteraCliente(UUID idCliente,@Valid ClienteAlteracaoRequest clienteAlteracaoRequest) {
+        log.info("[start] ClienteApplicationService - alteraCliente");
+        Cliente cliente = clienteRepository.findById(idCliente);
+        cliente.altera(clienteAlteracaoRequest);
+        clienteRepository.salva(cliente);
+        log.info("[finish] ClienteApplicationService - alteraCliente");
     }
 
 }

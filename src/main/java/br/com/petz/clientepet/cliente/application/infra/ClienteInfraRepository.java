@@ -1,8 +1,10 @@
 package br.com.petz.clientepet.cliente.application.infra;
 
+import br.com.petz.clientepet.cliente.application.api.ClienteAlteracaoRequest;
 import br.com.petz.clientepet.cliente.application.service.ClienteRepository;
 import br.com.petz.clientepet.cliente.domain.Cliente;
 import br.com.petz.clientepet.handler.APIException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -54,5 +56,13 @@ public class ClienteInfraRepository implements ClienteRepository {
         log.info("[start] ClienteInfraRepository - deleteById");
         clienteSpringDataJpaRepository.deleteById(idCliente);
         log.info("[finish] ClienteInfraRepository - deleteById");
+    }
+
+    @Override
+    public void altera(UUID idCliente, @Valid ClienteAlteracaoRequest clienteAlteracaoRequest) {
+        log.info("[start] ClienteInfraRepository - altera");
+        clienteSpringDataJpaRepository.findById(idCliente);
+        log.info("[finish] ClienteInfraRepository - altera");
+        clienteSpringDataJpaRepository.save(clienteAlteracaoRequest.converte(idCliente));
     }
 }
