@@ -2,6 +2,7 @@ package br.com.petz.clientepet.pet.application.api;
 
 import br.com.petz.clientepet.cliente.application.api.ClienteRequest;
 import br.com.petz.clientepet.cliente.application.api.ClienteResponse;
+import br.com.petz.clientepet.pet.domain.Pet;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
