@@ -35,6 +35,7 @@ public class Cliente {
     private String celular;
     @NotBlank
     private String telefone;
+    @Enumerated(EnumType.STRING)
     private Sexo sexo;
     @NotNull
     @DateTimeFormat
