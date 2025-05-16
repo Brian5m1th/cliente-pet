@@ -11,7 +11,7 @@ public class PetController implements PetAPI {
     @Override
     public PetResponse postPet(UUID idCliente , PetRequest petRequest) {
         log.info("[start] PetController - postPet");
-    log.info("[idCliente] {}", idCliente);
+        log.info("[idCliente] {}", idCliente);
         log.info("[finish] PetController - postPet");
         return null;
     }
