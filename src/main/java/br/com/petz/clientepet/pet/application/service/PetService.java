@@ -1,9 +1,9 @@
 package br.com.petz.clientepet.pet.application.service;
 
+import br.com.petz.clientepet.pet.application.api.PetClienteDetalhadoResponse;
 import br.com.petz.clientepet.pet.application.api.PetClienteListResponse;
 import br.com.petz.clientepet.pet.application.api.PetRequest;
 import br.com.petz.clientepet.pet.application.api.PetResponse;
-import br.com.petz.clientepet.pet.domain.Pet;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -13,4 +13,6 @@ public interface PetService {
     PetResponse criaPet(UUID idCliente, @Valid PetRequest petRequest);
 
     List<PetClienteListResponse> buscaPetsDoClienteComId(UUID idCliente);
+
+    PetClienteDetalhadoResponse buscaPetDoClienteComId(UUID idCliente, UUID idPet);
 }
