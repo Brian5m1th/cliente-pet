@@ -8,6 +8,7 @@ import br.com.petz.clientepet.pet.application.api.PetResponse;
 import br.com.petz.clientepet.pet.domain.Pet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,8 +44,9 @@ public class PetApplicationService implements PetService {
     @Override
     public PetClienteDetalhadoResponse buscaPetDoClienteComId(UUID idCliente, UUID idPet) {
         log.info("[start] PetApplicationService - buscaPetDoClienteComId");
-        log.info("[idCliente] {} - [idPet] {}", idCliente, idPet);
+        clienteService.buscaClientePorId(idCliente);
+        Pet pet = petRepository.findPetDoClienteById(idPet);
         log.info("[finish] PetApplicationService - buscaPetDoClienteComId");
-        return null;
+        return new PetClienteDetalhadoResponse(pet);
     }
 }

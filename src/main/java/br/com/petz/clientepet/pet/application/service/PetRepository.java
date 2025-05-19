@@ -10,4 +10,6 @@ public interface PetRepository {
     Pet save(Pet pet);
 
     List<Pet> buscaPetsDoClienteComId(UUID idCliente);
+
+    Pet findPetDoClienteById(UUID idPet);
 }
