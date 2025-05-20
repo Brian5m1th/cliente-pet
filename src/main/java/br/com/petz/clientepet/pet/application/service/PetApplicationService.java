@@ -1,14 +1,10 @@
 package br.com.petz.clientepet.pet.application.service;
 
 import br.com.petz.clientepet.cliente.application.service.ClienteService;
-import br.com.petz.clientepet.pet.application.api.PetClienteDetalhadoResponse;
-import br.com.petz.clientepet.pet.application.api.PetClienteListResponse;
-import br.com.petz.clientepet.pet.application.api.PetRequest;
-import br.com.petz.clientepet.pet.application.api.PetResponse;
+import br.com.petz.clientepet.pet.application.api.*;
 import br.com.petz.clientepet.pet.domain.Pet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,9 +20,8 @@ public class PetApplicationService implements PetService {
     @Override
     public PetResponse criaPet(UUID idCliente, PetRequest petRequest) {
         log.info("[start] PetApplicationService - salvaPet");
-        log.info("[idCliente] {}", idCliente);
         clienteService.buscaClientePorId(idCliente);
-        Pet pet  = petRepository.save(new Pet(idCliente , petRequest));
+        Pet pet = petRepository.save(new Pet(idCliente, petRequest));
         log.info("[finish] PetApplicationService - salvaPet");
         return new PetResponse(pet.getIdPet());
     }
@@ -34,7 +29,6 @@ public class PetApplicationService implements PetService {
     @Override
     public List<PetClienteListResponse> buscaPetsDoClienteComId(UUID idCliente) {
         log.info("[start] PetApplicationService - buscaPetsDoClienteComId");
-        log.info("[idCliente] {}", idCliente);
         clienteService.buscaClientePorId(idCliente);
         List<Pet> petsDoCliente = petRepository.buscaPetsDoClienteComId(idCliente);
         log.info("[finish] PetApplicationService - buscaPetsDoClienteComId");
@@ -57,5 +51,15 @@ public class PetApplicationService implements PetService {
         Pet pet = petRepository.findPetDoClienteById(idPet);
         petRepository.deletaPet(pet);
         log.info("[finish] PetApplicationService - deletaPetDoClienteComId");
+    }
+
+    @Override
+    public void alteraPetDoClienteComId(UUID idCliente, UUID idPet, PetAlteracaoRequest petAlteracaoRequest) {
+        log.info("[start] PetApplicationService - alteraPetDoClienteComId");
+        clienteService.buscaClientePorId(idCliente);
+        Pet pet = petRepository.findPetDoClienteById(idPet);
+        pet.altera(petAlteracaoRequest);
+        petRepository.save(pet);
+        log.info("[finish] PetApplicationService - alteraPetDoClienteComId");
     }
 }
