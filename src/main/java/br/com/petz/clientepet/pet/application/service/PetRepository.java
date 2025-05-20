@@ -12,4 +12,7 @@ public interface PetRepository {
     List<Pet> buscaPetsDoClienteComId(UUID idCliente);
 
     Pet findPetDoClienteById(UUID idPet);
+
+    void deletaPet(Pet pet);
+
 }
